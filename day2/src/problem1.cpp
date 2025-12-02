@@ -21,7 +21,7 @@ std::uint64_t sum_invalid(uint64_t &start, uint64_t &end) {
 
     int mid = view.length() / 2;
 
-    if (view.substr(0, mid) == view.substr(mid, current.length())) {
+    if (view.substr(0, mid) == view.substr(mid, mid)) {
       sum_invalid += i;
     }
   }

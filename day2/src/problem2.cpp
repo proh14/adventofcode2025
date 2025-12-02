@@ -8,20 +8,27 @@
 
 #define INPUT_FILE "../res/input.txt"
 
+bool is_matched(std::string_view &current_view, int pattern_len) {
+  std::string_view pattern = current_view.substr(0, pattern_len);
+  for (size_t k = pattern_len; k < current_view.length(); k += pattern_len) {
+    std::string_view segment = current_view.substr(k, pattern_len);
+    if (segment != pattern)
+      return false;
+  }
+  return true;
+}
+
 std::uint64_t sum_invalid(uint64_t &start, uint64_t &end) {
   std::uint64_t sum_invalid = 0;
   for (uint64_t i = start; i <= end; i++) {
     std::string current = std::to_string(i);
+    std::string_view current_view = std::string_view(current);
     for (uint64_t j = 0; j < current.length() - 1; j++) {
       if (current.length() % (j + 1) != 0) {
         continue;
       }
-      std::string_view pattern = std::string_view(current).substr(0, j + 1);
-      std::stringstream compare_ss;
-      while (compare_ss.str().length() < current.length()) {
-        compare_ss << pattern;
-      }
-      if (compare_ss.str().substr(0, current.length()) == current) {
+
+      if (is_matched(current_view, j + 1)) {
         sum_invalid += i;
         break;
       }
