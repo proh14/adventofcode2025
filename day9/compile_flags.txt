@@ -1,0 +1,6 @@
+ -Wall
+ -Wextra
+ -MMD
+ -MP
+ -std=c++17
+ -g
